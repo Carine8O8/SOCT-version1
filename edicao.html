@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.O.C.T. - Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arimo', sans-serif; }
+
+        body {
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; background-color: #e8f0fe; padding: 20px;
+        }
+
+        .container {
+            display: flex; flex-direction: column;
+            background-color: white; background-image: url('Imagens/fundo3.png');
+            background-size: cover; background-position: center;
+            width: 950px; height: 600px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 10px; position: relative;
+            padding: 30px 40px; overflow: hidden;
+        }
+
+        /* Notificação com estilo do site */
+        #notification {
+            position: absolute; top: -60px; left: 50%;
+            transform: translateX(-50%); background-color: #2b6cb0;
+            color: white; padding: 12px 40px; border-radius: 0 0 15px 15px;
+            font-family: 'League Spartan', sans-serif; font-weight: 700;
+            font-size: 18px; transition: 0.5s ease; z-index: 1000;
+            white-space: nowrap;
+        }
+
+        /* Classe para erro (opcional: mudar cor para vermelho se preferir) */
+        #notification.error { background-color: #e53e3e; }
+
+        .header-editor { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+        .btn-nav {
+            text-decoration: none; color: #2b6cb0; font-family: 'League Spartan', sans-serif;
+            font-weight: 900; font-size: 22px; background: none; border: none; cursor: pointer;
+        }
+
+        .input-titulo {
+            width: 100%; background-color: #d1e3ff; border: 2px solid #2b6cb0;
+            border-radius: 25px; padding: 10px 20px; font-weight: 900;
+            font-size: 18px; color: #2b6cb0; margin-bottom: 15px; outline: none;
+        }
+
+        .editor-box {
+            background-color: white; border: 2px solid #2b6cb0;
+            border-radius: 20px; flex: 1; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        .toolbar {
+            display: flex; justify-content: space-between; padding: 8px 15px;
+            border-bottom: 2px solid #2b6cb0; background: #f8fbff;
+        }
+
+        .tools-group { display: flex; align-items: center; gap: 8px; }
+
+        .tool-btn {
+            background: white; border: 1px solid #cbd5e0; border-radius: 6px;
+            font-weight: bold; font-size: 16px; cursor: pointer; color: #2b6cb0;
+            width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .tool-btn.active { border: 2.5px solid #2b6cb0; background-color: #e1efff; }
+
+        .main-content { display: flex; flex: 1; overflow: hidden; }
+
+        #editor-editable {
+            flex: 1; padding: 20px; outline: none; color: #2b6cb0;
+            overflow-y: auto; line-height: 1.5; font-size: 18px;
+        }
+
+        .image-sidebar {
+            width: 220px; flex-shrink: 0; border-left: 2px solid #2b6cb0;
+            padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;
+        }
+
+        .img-item { position: relative; width: 100%; }
+        .img-item img { width: 100%; border-radius: 8px; border: 1px solid #2b6cb0; cursor: pointer; }
+        .del-img {
+            position: absolute; top: 2px; right: 2px; background: #ff4d4d; color: white;
+            border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer;
+        }
+
+        #modal-view {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;
+        }
+        #modal-view img { max-width: 90%; max-height: 85%; }
+        .close-modal { position: absolute; top: 30px; right: 40px; color: white; font-size: 50px; cursor: pointer; }
+
+        #file-input { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="modal-view" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img id="full-img" src="">
+    </div>
+
+    <div class="container">
+        <div id="notification">Mensagem</div>
+
+        <div class="header-editor">
+            <a href="criacao.html" class="btn-nav">Voltar</a>
+            <button class="btn-nav" onclick="saveData()">Salvar</button>
+        </div>
+
+        <input type="text" class="input-titulo" id="doc-title" placeholder="Título do Conhecimento">
+
+        <div class="editor-box">
+            <div class="toolbar">
+                <div class="tools-group">
+                    <button class="tool-btn" id="bold" onclick="format('bold')">B</button>
+                    <button class="tool-btn" id="italic" onclick="format('italic')" style="font-style: italic;">I</button>
+                    <button class="tool-btn" id="underline" onclick="format('underline')" style="text-decoration: underline;">U</button>
+                    <span style="color: #cbd5e0;">|</span>
+                    <button class="tool-btn" onclick="changeFontSize(4)">+</button>
+                    <button class="tool-btn" onclick="changeFontSize(-4)">-</button>
+                </div>
+                <div class="tools-group" onclick="document.getElementById('file-input').click()" style="cursor: pointer;">
+                    <svg viewBox="0 0 24 24" width="28" fill="#2b6cb0"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                </div>
+                <input type="file" id="file-input" accept="image/*" multiple onchange="handleImgs(event)">
+            </div>
+
+            <div class="main-content">
+                <div id="editor-editable" contenteditable="true" onkeyup="checkButtons()" onkeydown="handleEnter(event)"></div>
+                <div class="image-sidebar" id="img-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function format(cmd) {
+            document.execCommand(cmd, false, null);
+            checkButtons();
+        }
+
+        function checkButtons() {
+            ['bold', 'italic', 'underline'].forEach(c => {
+                const btn = document.getElementById(c);
+                document.queryCommandState(c) ? btn.classList.add('active') : btn.classList.remove('active');
+            });
+        }
+
+        function changeFontSize(step) {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                let parent = selection.anchorNode.parentElement;
+                let currentSize = parseInt(window.getComputedStyle(parent).fontSize);
+                let newSize = currentSize + step;
+                document.execCommand("fontSize", false, "1");
+                const fontElements = document.getElementsByTagName("font");
+                for (let i = 0; i < fontElements.length; i++) {
+                    if (fontElements[i].size === "1") {
+                        fontElements[i].removeAttribute("size");
+                        fontElements[i].style.fontSize = newSize + "px";
+                    }
+                }
+            }
+        }
+
+        function handleEnter(e) {
+            if (e.key === "Enter") {
+                setTimeout(() => {
+                    document.execCommand("fontSize", false, "3");
+                    const selection = window.getSelection();
+                    const currentElement = selection.anchorNode.parentElement;
+                    if (currentElement.id !== "editor-editable") {
+                        currentElement.style.fontSize = ""; 
+                    }
+                }, 10);
+            }
+        }
+
+        function handleImgs(e) {
+            const files = e.target.files;
+            const gallery = document.getElementById('img-gallery');
+            for (let file of files) {
+                const reader = new FileReader();
+                reader.onload = f => {
+                    const div = document.createElement('div');
+                    div.className = 'img-item';
+                    div.innerHTML = `<button class="del-img" onclick="this.parentElement.remove()">×</button>
+                                     <img src="${f.target.result}" onclick="openModal('${f.target.result}')">`;
+                    gallery.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function openModal(src) {
+            document.getElementById('full-img').src = src;
+            document.getElementById('modal-view').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal-view').style.display = 'none'; }
+
+        // Função para mostrar notificação customizada
+        function showNotify(text, isError = false) {
+            const note = document.getElementById('notification');
+            note.innerText = text;
+            note.classList.toggle('error', isError);
+            note.style.top = "0px";
+            
+            setTimeout(() => {
+                note.style.top = "-60px";
+            }, 2500);
+        }
+
+        function saveData() {
+            const title = document.getElementById('doc-title').value.trim();
+            const content = document.getElementById('editor-editable').innerText.trim();
+            
+            // Validação de Título e Descrição usando o estilo do site
+            if (!title) {
+                showNotify("Insira um título!", true);
+                return;
+            }
+            if (!content) {
+                showNotify("Insira uma descrição!", true);
+                return;
+            }
+
+            // Sucesso
+            showNotify("Conhecimento salvo!");
+            
+            setTimeout(() => {
+                document.getElementById('doc-title').value = "";
+                document.getElementById('editor-editable').innerHTML = "";
+                document.getElementById('img-gallery').innerHTML = "";
+                checkButtons();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

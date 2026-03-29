@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinição de Senha - S.O.C.T.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arimo', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #e8f0fe;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            background-color: white;
+            background-image: url('Imagens/fundo1.png');
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 950px; 
+            max-width: 100%; 
+            height: 600px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .btn-voltar {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            text-decoration: none;
+            color: #2b6cb0;
+            font-family: 'League Spartan', sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            transition: 0.3s;
+            z-index: 20;
+        }
+
+        .btn-voltar:hover {
+            color: #1a4a7a;
+            transform: scale(1.05);
+        }
+
+        .redefine-section {
+            flex: 1;
+            padding: 39px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.5); 
+        }
+
+        .redefine-section h1 {
+            font-family: 'League Spartan', sans-serif;
+            font-weight: 900;
+            color: #2b6cb0;
+            font-size: 40px;
+            text-decoration: underline;
+            margin-bottom: 30px; 
+        }
+
+        .form-redefinir {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 2px;
+        }
+
+        /* Classe para aumentar o espaço entre Resposta e Nova Senha */
+        .espaco-extra {
+            margin-top: 15px; 
+        }
+
+        .label-style {
+            color: #2b6cb0;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #2b6cb0;
+            border-radius: 10px;
+            outline: none;
+            color: #2b6cb0;
+            background-color: white;
+            font-size: 16px;
+        }
+
+        input::placeholder, select::placeholder {
+            color: #2b6cb0 !important;
+            opacity: 1;
+        }
+
+        .input-destaque {
+            background-color: #d1e3f8;
+        }
+
+        .btn-redefinir {
+            width: 100%;
+            padding: 14px;
+            border-radius: 25px;
+            border: none;
+            background-color: #2b6cb0;
+            color: white;
+            font-family: 'League Spartan', sans-serif;
+            font-weight: 900;
+            font-size: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .btn-redefinir:hover {
+            background-color: #1a4a7a;
+        }
+
+        @media (max-width: 768px) {
+            .container { height: auto; min-height: 600px; }
+            .btn-voltar { top: 15px; left: 20px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="btn-voltar">Voltar</a>
+
+        <div class="redefine-section">
+            <h1>Redefinição de senha</h1>
+            <br>
+            
+            <form class="form-redefinir">
+                <div class="input-group">
+                    <input type="text" placeholder="Usuário" class="input-destaque">
+                </div>
+                
+                <div class="input-group">
+                    <label class="label-style">Pergunta de segurança</label>
+                    <select>
+                        <option value="" disabled selected>Selecione uma pergunta</option>
+                        <option>Qual a sua cor favorita?</option>
+                        <option>Nome do seu primeiro animal de estimação?</option>
+                        <option>Nome do seu filho?</option>
+                        <option>Nome da sua mãe?</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label class="label-style">Resposta</label>
+                    <input type="text" placeholder="Digite sua resposta">
+                </div>
+
+                <div class="input-group espaco-extra">
+                    <input type="password" placeholder="Nova Senha" class="input-destaque">
+                </div>
+
+                <button type="submit" class="btn-redefinir">Redefinir</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
