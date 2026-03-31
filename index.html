@@ -1,221 +1,86 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="Pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login S.O.C.T.</title>
 
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=League+Spartan:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
 
-   <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arimo', sans-serif;
-        }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #e8f0fe;
-            padding: 20px; /* Garante que o container não cole nas bordas do celular */
-        }
-
-        .container {
-            display: flex;
-            background-color: white;
-            width: 950px; /* Largura um pouco maior para acomodar os campos de cadastro */
-            max-width: 120%; 
-            height: 600px;
-            box-shadow: 0 10px 25px #0000001a;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        /* Lado Esquerdo: Formulário */
-        .login-section {
-            flex: 1;
-            padding: 39px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-right: 68px;
-        }
-
-        .login-section h1 {
-            font-family: 'League Spartan', sans-serif;
-            font-weight: 900;
-            color: #2b6cb0;
-            font-size: 39px;
-            margin-bottom: 15px;
-            padding-bottom: 30px;
-        }
-
-        .login-section p {
-            font-family: 'League Spartan', sans-serif;
-            color: #2b6cb0;
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .form-group {
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 15px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #2b6cb0;
-            border-radius: 10px;
-            background-color: #e8f0fe;
-            outline: none;
-            color: #2b6cb0;
-        }
-
-        input::placeholder {
-            color: #2b6cb0;
-        }
-
-        .forgot-password {
-            color: #2b6cb0;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 12px;
-            border-radius: 20px;
-            border: 2px solid #2b6cb0;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-bottom: 10px;
-        }
-
-        .btn-entrar {
-            background-color: #2b6cb0;
-            color: white;
-        }
-
-        .btn-cadastrar {
-            background-color: white;
-            color: #2b6cb0;
-        }
-
-        .import-link {
-            color: #2b6cb0;
-            font-size: 13px;
-            font-weight: bold;
-            text-decoration: underline;
-            margin-top: 10px;
-        }
-
-        /* Lado Direito: Logo */
-        .logo-section {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            padding-right: 69px;
-            padding-bottom: 25px;
-        }
-
-        .logo-image {
-            width: 129%;
-            border-radius: 61px;
-            object-fit: cover;
-        }
-
-        /* Efeito para o botão "Entrar" (fica um azul mais escuro) */
-    .btn-entrar:hover {
-        background-color: #1a4a7a; /* Um tom de azul mais fechado */
-        border-color: #1a4a7a;
-        }
-
-/* Efeito para o botão "Cadastrar" (o fundo ganha cor e o texto muda) */
-    .btn-cadastrar:hover {
-        background-color: #e8f0fe; /* O azul clarinho dos inputs */
-        color: #1a4a7a;
-        }
-
-    /* Transição suave para não mudar de cor de repente */
-    .btn {
-        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    }
-
-        /* --- AJUSTES PARA CELULAR (RESPONSIVIDADE) --- */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Empilha a logo e o formulário */
-                height: auto;           /* Permite que a altura cresça conforme o conteúdo */
-                width: 100%;
-            }
-
-            .logo-section {
-                padding: 20px;          /* Remove o padding lateral excessivo no celular */
-                order: -1;              /* Garante que a logo apareça em cima */
-            }
-
-            .logo-image {
-                width: 80%;             /* Ajusta o tamanho da logo para não estourar a tela */
-            }
-
-            .login-section {
-                padding: 30px 20px;     /* Ajusta o espaçamento interno no celular */
-            }
-
-            /* Ajuste para que a linha de underline não quebre o layout */
-            .linha {
-                width: 100%;
-                overflow: hidden;
-                white-space: nowrap;
-            }
-        }
-
-    </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="login-section">
-            <h1><u>Faça Login ou Cadastre-se</u></h1>
-            <p>   Bem-Vindo!   <br>    É muito bom te ver!    </p>
-            <p class="linha">_________________________________________</p>
-            <br>
-            <div class="form-group">
-                <input type="text" placeholder="Usuário">
+
+            <div class="login">
+
+                <h1 class="login__titulo"> 
+                    Faça Login ou Cadastre-se
+                </h1>
+
+                <p class="login__titulo-texto">
+                    Bem-Vindo!
+                    <br>
+                    É muito bom te ver!
+                </p>
+
+                <p class="linha">_________________________________________</p>
+
+
+                <br>
+
+                <div class="login__input">
+                    <input type="text" 
+                    name="usuario" 
+                    id="usuario"
+                    
+                    placeholder="Usuário">
+
+                </div> <!-- Fim do login input texto -->
+
+                <div class="login__input">
+                    <input type="password" 
+                    name="senha" 
+                    id="senha"
+                    
+                    placeholder="Senha">
+                    
+                </div> <!-- Fim do login input senha -->
+
+                <!-- LINK -->
+                <a href="redefinicao.html"
+                class="login__esqueceu-senha"
+                >Esqueceu a senha?</a>
+
+                <!-- BOTÕES 
+                Ainda falta o link para entrar 
+                -->
+                <button class="botao login__botao-entrar">
+                    Entrar
+                </button>
+
+                <button class="botao login__botao-cadastrar"
+                onclick="window.location.href='cadastro.html'" >
+                Cadastrar
+                </button>
+
+                <!-- LINK -->
+                <a href="#"
+                class="login__importacao-perfil"
+                >Importar perfil? Vem cá!</a>
+            </div> <!-- Fim da Classe Login -->
+
+            <div class="login__logo">
+                <img src="Imagens/S.O.C.T.Logo.png" alt="Logo do SOCT" class="logo__imagem">
             </div>
-            <div class="form-group">
-                <input type="password" placeholder="Senha">
-            </div>
 
-            <a href="redefinicao.html" class="forgot-password">Esqueceu a senha?</a>
+    </div> <!-- Fim do container -->
 
-            <button class="btn btn-entrar">Entrar</button>
-            <button class="btn btn-cadastrar" onclick="window.location.href='cadastro.html'">Cadastrar</button>
-
-            <a href="#" class="import-link">Importação de perfil? Vem cá!</a>
-        </div>
-
-        <div class="logo-section">
-            <img src="Imagens/S.O.C.T.Logo.png" alt="S.O.C.T. Logo" class="logo-image">
-        </div>
-    </div>
-
+    
 </body>
 </html>
