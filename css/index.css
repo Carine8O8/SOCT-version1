@@ -1,0 +1,196 @@
+/* ################################################### */
+/*                Confiurações Gerais                  */
+/* ################################################### */
+
+*{
+
+    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'League Spartan', sans-serif;
+
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e8f0fe;
+    padding: 20px;
+}
+
+.container{
+    display: flex;
+    width: 950px;
+    height: 590px;
+    max-width: 100%;
+
+    background-color: #fff;
+    box-shadow: 0 10px 25px #0000001a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ################################################### */
+/*                Estilização do Formulário   
+                        lado Esquerdo                  */
+/* ################################################### */
+
+
+.login{
+    flex: 1;
+    padding: 39px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 60px;
+}
+
+.login__titulo{     
+    color: #2b6cb0;       
+    font-weight: 900;
+    font-size: 45px;
+    margin-bottom: 15px;
+    padding-bottom: 30px;
+    text-decoration: underline;
+}
+.login__titulo-texto{
+    font-size: 16px;
+    color: #2b6cb0;
+    margin-bottom: 5px;
+}
+
+.linha{
+    color: #2b6cb0;
+}
+
+.login__input{
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;   
+}
+
+.login__input input{
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #2b6cb0;
+    border-radius: 10px;
+    background-color: #e8f0fe;
+    outline: none;
+    color: #2b6cb0;
+}
+
+.login__input input::placeholder{
+    color: #2b6cb0;
+   font-size: 15px;
+}
+
+.login__esqueceu-senha{
+    color: #2b6cb0;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.botao{
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border-radius: 20px;
+    border: 2px solid #2b6cb0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-bottom: 10px;
+}
+
+.login__botao-entrar{
+    background-color: #2b6cb0;
+    color: white; 
+}
+
+.login__botao-entrar:hover{
+    background-color: #1a4a7a; /* Um tom de azul mais fechado */
+    border-color: #1a4a7a;
+}
+
+.login__botao-cadastrar{
+    background-color: white;
+    color: #2b6cb0;
+}
+
+.login__botao-cadastrar:hover{
+    background-color: #e8f0fe; /* O azul clarinho dos inputs */
+    color: #1a4a7a;
+}
+
+.botao{
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.login__importacao-perfil{
+    color: #2b6cb0;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 10px;
+}
+
+/* ################################################### */
+/*                Estilização do Formulário   
+                        lado Direito                   */
+/* ################################################### */
+
+.login__logo{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-right: 69px;
+    padding-bottom: 25px;  
+}
+
+.logo__imagem{
+    width: 100%;
+    border-radius: 61px;
+    object-fit: cover;
+}
+
+/* ################################################### */
+/*             Configurações para responsividade       */
+/* ################################################### */
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Empilha a logo e o formulário */
+                height: auto;           /* Permite que a altura cresça conforme o conteúdo */
+                width: 100%;
+            }
+
+            .login__logo {
+                padding: 20px;          /* Remove o padding lateral excessivo no celular */
+                order: -1;              /* Garante que a logo apareça em cima */
+            }
+
+            .logo-imagem {
+                width: 80%;             /* Ajusta o tamanho da logo para não estourar a tela */
+            }
+
+            .login {
+                padding: 30px 20px;     /* Ajusta o espaçamento interno no celular */
+            }
+
+            /* Ajuste para que a linha de underline não quebre o layout */
+            .linha {
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
